@@ -6,7 +6,7 @@ import ListItem from '../components/List/ListItem';
 import Divider from '../components/List/Divider';
 
 const COLORS = [
-  {id: 1, color: '#f6d7a', text: 'Gray'},
+  {id: 1, color: '#536A7B', text: 'Gray'},
   {id: 2, color: '#d57a66', text: 'Orange'},
   {id: 3, color: '#00bd9d', text: 'Blue'},
   {id: 4, color: '#9e768f', text: 'Purple'},
