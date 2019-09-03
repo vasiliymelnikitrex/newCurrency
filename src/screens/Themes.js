@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StatusBar, ScrollView, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -12,8 +13,8 @@ const COLORS = [
   {id: 4, color: '#9e768f', text: 'Purple'},
 ];
 
-const Themes = () => {
-  const handleThemePress = () => null;
+const Themes = ({navigation}) => {
+  const handleThemePress = () => navigation.goBack();
 
   return (
     <ScrollView>
@@ -30,6 +31,10 @@ const Themes = () => {
       ))}
     </ScrollView>
   );
+};
+
+Themes.propTypes = {
+  navigation: PropTypes.object,
 };
 
 export default Themes;

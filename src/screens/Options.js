@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StatusBar, ScrollView} from 'react-native';
+import {StatusBar, ScrollView, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import {connectAlert} from '../HOCs/Alert';
 import ListItem from '../components/List/ListItem';
 import Divider from '../components/List/Divider';
 
-const Options = ({navigation}) => {
+const Options = ({navigation, alertWithType}) => {
   const handleThemePress = () =>
     navigation.navigate('Themes', {title: 'Themes'});
-  const handleSitePress = () => null;
+
+  const handleSitePress = () =>
+    Linking.openURL('dfghttp://fixer.io').catch(() =>
+      alertWithType('Error', 'Sorry!', 'Fixer.io can not be opened'),
+    );
 
   return (
     <ScrollView>
@@ -32,6 +37,7 @@ const Options = ({navigation}) => {
 
 Options.propTypes = {
   navigation: PropTypes.object,
+  alertWithType: PropTypes.func,
 };
 
-export default Options;
+export default connectAlert(Options);

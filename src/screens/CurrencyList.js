@@ -11,7 +11,7 @@ const CurrencyList = ({navigation}) => {
   const handlePress = item => {
     setCurrency(item);
     navigation.goBack(); // null
-  }
+  };
 
   return (
     <View>
