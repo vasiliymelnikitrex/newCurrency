@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StatusBar, KeyboardAvoidingView} from 'react-native';
 
 import Container from '../components/Container/Container';
@@ -17,10 +18,14 @@ import ClearButton from '../components/Button/Button';
 import LastConverted from '../components/Text/LastConverted';
 import {CURRENCIES} from '../constants';
 
-const Home = () => {
-  const handlePressBaseCurrency = () => alert('base currency');
-  const handlePressQuoteCurrency = () => alert('quote currency');
-  const handlePressSettings = () => alert('settings');
+const Home = ({navigation}) => {
+  const handlePressBaseCurrency = () =>
+    navigation.navigate('CurrencyList', {title: 'Base Currency'});
+  const handlePressQuoteCurrency = () =>
+    navigation.navigate('CurrencyList', {title: 'Quote Currency'});
+  const handlePressSettings = () =>
+    navigation.navigate('Options', {title: 'Options'});
+
   const handlePressReverse = () => alert('reverse');
   const handleChangeText = () => alert('change text');
 
@@ -53,6 +58,10 @@ const Home = () => {
       </KeyboardAvoidingView>
     </Container>
   );
+};
+
+Home.propTypes = {
+  navigation: PropTypes.object,
 };
 
 export default Home;

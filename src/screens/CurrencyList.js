@@ -1,21 +1,17 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import {StatusBar, FlatList, View} from 'react-native';
 import ListItem from '../components/List/ListItem';
 import Separator from '../components/List/Separator';
 import {COUNTRIES} from '../constants';
 
-const CurrencyList = () => {
+const CurrencyList = ({navigation}) => {
   const [cur, setCurrency] = useState('CAD');
 
-  const handlePress = item => setCurrency(item);
+  const handlePress = item => {
+    setCurrency(item);
+    navigation.goBack(); // null
+  }
 
   return (
     <View>
@@ -31,6 +27,10 @@ const CurrencyList = () => {
       />
     </View>
   );
+};
+
+CurrencyList.propTypes = {
+  navigation: PropTypes.object,
 };
 
 export default React.memo(CurrencyList);

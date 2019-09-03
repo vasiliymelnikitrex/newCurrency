@@ -1,12 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StatusBar, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ListItem from '../components/List/ListItem';
 import Divider from '../components/List/Divider';
 
-const Options = () => {
-  const handleThemePress = () => null;
+const Options = ({navigation}) => {
+  const handleThemePress = () =>
+    navigation.navigate('Themes', {title: 'Themes'});
   const handleSitePress = () => null;
 
   return (
@@ -26,6 +28,10 @@ const Options = () => {
       <Divider />
     </ScrollView>
   );
+};
+
+Options.propTypes = {
+  navigation: PropTypes.object,
 };
 
 export default Options;
