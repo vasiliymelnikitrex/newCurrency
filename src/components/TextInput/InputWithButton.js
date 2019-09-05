@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -16,6 +16,7 @@ const InputWithButton = ({
   editable,
   keyboardType,
   defaultValue,
+  onChangeText,
 }) => (
   <View style={styles.container}>
     <TouchableHighlight
@@ -27,8 +28,8 @@ const InputWithButton = ({
     <View style={styles.border} />
     <TextInput
       style={{...styles.input, ...(editable || styles.disabled)}}
-      value={defaultValue}
       keyboardType={keyboardType}
+      onChangeText={onChangeText}
     />
   </View>
 );
@@ -38,6 +39,7 @@ InputWithButton.propTypes = {
   defaultValue: PropTypes.string,
   keyboardType: PropTypes.string,
   onPress: PropTypes.func,
+  onChangeText: PropTypes.func,
   editable: PropTypes.bool,
 };
 

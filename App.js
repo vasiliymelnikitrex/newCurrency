@@ -7,14 +7,18 @@
  */
 
 import React from 'react';
+import {Provider} from 'react-redux';
 
+import store from './src/redux/store';
 import Navigator from './src/config/routes';
 import {AlertProvider} from './src/HOCs/Alert';
 
 const App = () => (
-  <AlertProvider>
-    <Navigator />
-  </AlertProvider>
+  <Provider store={store}>
+    <AlertProvider>
+      <Navigator />
+    </AlertProvider>
+  </Provider>
 );
 
 export default App;

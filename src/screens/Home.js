@@ -9,6 +9,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StatusBar, KeyboardAvoidingView} from 'react-native';
+import {connect} from 'react-redux';
 
 import Container from '../components/Container/Container';
 import Header from '../components/Header/Header';
@@ -17,17 +18,22 @@ import InputWithButton from '../components/TextInput/InputWithButton';
 import ClearButton from '../components/Button/Button';
 import LastConverted from '../components/Text/LastConverted';
 import {CURRENCIES} from '../constants';
+import {swapCurrency, changeCurrencyAmount} from '../redux/actions/currencies';
 
-const Home = ({navigation}) => {
+const Home = ({navigation, dispatch}) => {
   const handlePressBaseCurrency = () =>
     navigation.navigate('CurrencyList', {title: 'Base Currency'});
+
   const handlePressQuoteCurrency = () =>
     navigation.navigate('CurrencyList', {title: 'Quote Currency'});
+
   const handlePressSettings = () =>
     navigation.navigate('Options', {title: 'Options'});
 
-  const handlePressReverse = () => alert('reverse');
-  const handleChangeText = () => alert('change text');
+  const handlePressReverse = () => dispatch(swapCurrency());
+
+
+  const handleChangeText = text => console.dir(changeCurrencyAmount(text));
 
   return (
     <Container>
@@ -62,6 +68,10 @@ const Home = ({navigation}) => {
 
 Home.propTypes = {
   navigation: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
-export default Home;
+const mapStateToProps = () => {};
+const mapDispatchToProps = () => {};
+
+export default connect()(Home);
