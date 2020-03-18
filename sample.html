@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="button">Click</button>
+  <script>
+    /*JSON: parse, stringify*/
+    /*localStorage/sessionStorage*/
+    const url = 'https://api.myjson.com/bins/1eryb2';
+    const carsUrl = 'https://api.myjson.com/bins/1300qe';
+
+    const config = {
+      method: "GET", // POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "text/plain;charset=UTF-8"
+      },
+      // body: undefined, string, FormData, Blob, BufferSource или URLSearchParams
+      // mode: "cors", // same-origin, no-cors
+      // credentials: "same-origin", // omit, include
+      cache: "default", // no-store, reload, no-cache, force-cache или only-if-cached
+    };
+
+    window.onload = function() {
+      button.addEventListener('click', () => {
+        fetchAsyncDataWithPersist();
+      });
+
+      function xmlHTTPRequestDataCallbacks() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.send();
+        xhr.onload = function() {
+          if (xhr.status != 200) {
+            alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+          } else {
+            console.log(`Готово, получили ${xhr.response.length} байт`);
+            console.log(xhr.response);
+          }
+        };
+
+        xhr.onprogress = function(event) {
+          if (event.lengthComputable) {
+            console.log(`Получено ${event.loaded} из ${event.total} байт`);
+          } else {
+            console.log(`Получено ${event.loaded} байт`);
+          }
+        };
+
+        xhr.onerror = function() {
+          alert("Запрос не удался");
+        };
+      }
+
+      function xmlHTTPRequestDataPromices() {
+        return new Promise(function(resolve, reject) {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', url);
+          xhr.send();
+
+          xhr.onload = () => {
+            if (xhr.status != 200) {
+              reject(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+            } else {
+              resolve(xhr.response);
+            }
+          };
+          // xhr.onprogress = () => document.body.style.background = 'red';
+          xhr.onerror = () => reject(new Error(`Ошибка загрузки`));
+        });
+      }
+
+      function fetchData() {
+        fetch(url, config)
+          .then(res => res.json())
+          .then(console.log);
+      }
+
+      async function fetchAsyncData() {
+        const res = await fetch(carsUrl, config);
+        const resJson = await res.json();
+
+        console.log(resJson);
+      };
+
+      async function fetchAsyncDataWithPersist() {
+        if(sessionStorage.getItem('cars')) {
+          const res = sessionStorage.getItem('cars');
+          console.log(JSON.parse(res));
+        } else {
+          const res = await fetch(carsUrl, config);
+          const resJson = await res.json();
+          sessionStorage.setItem('cars', JSON.stringify(resJson));
+          console.log(resJson);
+        }
+      };
+      // localStorage.setItem('name', 'Pit');
+      // sessionStorage.setItem('name', 'Jane');
+    };
+  </script>
+</body>
+</html>
