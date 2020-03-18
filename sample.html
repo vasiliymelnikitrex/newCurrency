@@ -11,8 +11,8 @@
     /*JSON: parse, stringify*/
     /*localStorage/sessionStorage*/
     const url = 'https://api.myjson.com/bins/1eryb2';
+    const imgUrl = 'https://api.myjson.com/bins/f392u';
     const carsUrl = 'https://api.myjson.com/bins/1300qe';
-
     const config = {
       method: "GET", // POST, PUT, DELETE, etc.
       headers: {
@@ -24,12 +24,38 @@
       cache: "default", // no-store, reload, no-cache, force-cache или only-if-cached
     };
 
+    class Menu {
+      constructor(data) {
+        this.data = data;
+      }
+      createTag() {
+        const ul = document.createElement('ul');
+        this.data.forEach(elem => {
+          const li = document.createElement('li');
+          const img = document.createElement('img');
+          img.src = elem["image-url"];
+          li.innerHTML = elem.description + '<br />';
+          li.appendChild(img);
+          ul.appendChild(li);
+        });
+        return ul;
+      };
+      render() {
+        const ul = this.createTag();
+        document.body.appendChild(ul);
+      }
+    }
+
     window.onload = function() {
       button.addEventListener('click', () => {
-        fetchAsyncDataWithPersist();
+        fetchAsyncData(imgUrl)
+          .then(data => {
+            const menu = new Menu(data);
+            menu.render();
+          });
       });
 
-      function xmlHTTPRequestDataCallbacks() {
+      function xmlHTTPRequestDataCallbacks(url) {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', url);
         xhr.send();
@@ -55,7 +81,7 @@
         };
       }
 
-      function xmlHTTPRequestDataPromices() {
+      function xmlHTTPRequestDataPromices(url) {
         return new Promise(function(resolve, reject) {
           const xhr = new XMLHttpRequest();
           xhr.open('GET', url);
@@ -73,25 +99,25 @@
         });
       }
 
-      function fetchData() {
+      function fetchData(url, config) {
         fetch(url, config)
           .then(res => res.json())
           .then(console.log);
       }
 
-      async function fetchAsyncData() {
-        const res = await fetch(carsUrl, config);
+      async function fetchAsyncData(url, config) {
+        const res = await fetch(url, config);
         const resJson = await res.json();
 
-        console.log(resJson);
+       return resJson;
       };
 
-      async function fetchAsyncDataWithPersist() {
+      async function fetchAsyncDataWithPersist(url, config) {
         if(sessionStorage.getItem('cars')) {
           const res = sessionStorage.getItem('cars');
           console.log(JSON.parse(res));
         } else {
-          const res = await fetch(carsUrl, config);
+          const res = await fetch(url, config);
           const resJson = await res.json();
           sessionStorage.setItem('cars', JSON.stringify(resJson));
           console.log(resJson);
