@@ -1,0 +1,44 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# ide
+.idea
+.vscode
+*.code-workspace
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+
+# logs
+npm-debug.log*
+
+# config
+/public/app-env.js
+/public/app-env.json
+
+# env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# plato reports
+/report
+
+# jest coverage report
+/reports
+
+# package-lock
+package-lock.json
+
+.scannerwork/
+
+
