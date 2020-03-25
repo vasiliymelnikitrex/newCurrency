@@ -1,1 +1,3 @@
-alert(1);
+import getButton from './button';
+
+getButton();

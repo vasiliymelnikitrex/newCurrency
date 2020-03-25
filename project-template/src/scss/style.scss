@@ -1,5 +1,26 @@
-$blue:blue;
+@import 'common/colors';
+@import 'common/mixins'; // импорты
 
 body {
-  background-color:$blue;
+  background-color:$yellow; // переменные
+  .text {
+    &__link { // вложенность
+      text-decoration: none;
+      @include getText(50px);
+    }
+  }
+
+  %message-shared {
+    display: flex;
+    flex-direction: column; // классы
+  }
+  
+  .message {
+    @extend %message-shared; // миксиыны
+    flex-direction: row;
+
+    div {
+      flex: 1 1 50%;
+    }
+  }
 }

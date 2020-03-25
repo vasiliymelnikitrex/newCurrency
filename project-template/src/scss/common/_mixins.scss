@@ -1,0 +1,6 @@
+@mixin getText($size) {
+  font-size: $size;
+  font-weight: bold;
+  font-style: italic;
+  color: brown;
+}
